@@ -25,15 +25,25 @@
     res: Object representing the outgoing response
     res.send(): Immediately sends some JSON back to who ever made the request
 
+    Express will route handle the user into the passport flow
+
+    Run dev command: npm run dev
 */
 const express = require('express');
+
+//  Can get away with this Syntax because we are not exporting any code
+//  We don't care about pulling any code out of passport.js. Just make sure it's
+//  excuted.
+require('./services/passport');
+
+
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send({ bye: 'General Kenobi'});
-});
+// Valid Javascript, when authRoutes file is required it will return a function
+require('./routes/authRoutes')(app);
 
-//Localhost:5000
+
+//http://localhost:5000/auth/google/callback <-- Fix wilcard option Google Oauth
 //Heroku can inject environment variables
 //No environemnet variable defined by Heroku, utilize Localhost
 const PORT = process.env.PORT || 5000;
