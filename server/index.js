@@ -28,13 +28,22 @@
     Express will route handle the user into the passport flow
 
     Run dev command: npm run dev
+
+    Cookie based authentication
+
+    Javascript Libraries: passport.js / express.js / mongoose.js /
+                          Mlab (remote host MongoDB) - Hosted on AWS
 */
-const express = require('express');
 
 //  Can get away with this Syntax because we are not exporting any code
-//  We don't care about pulling any code out of passport.js. Just make sure it's
-//  excuted.
+//  We don't care about pulling any code out of passport.js. Just make sure it's excuted.
 require('./services/passport');
+require('./models/User');
+const express = require('express');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+
+mongoose.connect(keys.mongoURI);
 
 
 const app = express();
